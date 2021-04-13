@@ -8,19 +8,13 @@
 int main(int argc, char const *argv[])
 {
     int nrows, ncols, oper, direction;
-    int *mat;
     void (*operation) (int, int*);
-
-    printf("Input the rows and columns separated by a space\n");
-    scanf("%d %d", &nrows, &ncols);
 
     printf("Choose between sum(0) or product(1)\n");
     scanf("%d", &oper);
 
     printf("Row-wise(0) or column-wise(1)\n");
     scanf("%d", &direction);
-    
-    mat = (int *)malloc(nrows*ncols*sizeof(int));
 
     if(oper == 0){
         operation = sum;
@@ -28,21 +22,18 @@ int main(int argc, char const *argv[])
         operation = product;
     }
 
-    // replaced fillMatrix(nrows, ncols, mat); with a manual fill
-    int elem;
-    printf("Insert the matrix elements\n");
-    for(int i = 0; i < nrows * ncols; i++) {
-	scanf("%d", &elem);
-	mat[i] = elem;	
-    }
+    // replaced fillMatrix(nrows, ncols, mat); with a static fill
+    nrows = 3;
+    ncols = 6;
+    int mat[] = {  3,   1,   6, -11, 100,  34, 
+	     2,   5,   1, 523,  54, 177,
+    	    55, 120,   2,  16, -55, -18};
 
     printf("Matrix \n");
     printMatrix(nrows, ncols, mat);
 
     printf("Apply result\n");
     apply(nrows, ncols, mat, operation, direction);
-  
-    free(mat);
 
     return 0;
 }
